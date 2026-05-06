@@ -6,7 +6,7 @@
 .sidebar {
   width: var(--sidebar-w);
   min-height: 100vh;
-  background: #a1c4b9;           /* Soft muted teal sidebar */
+  background: var(--teal);       /* Dark teal sidebar */
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -14,14 +14,14 @@
   z-index: 50;
   transform: translateX(0);
   transition: transform 0.3s ease;
-  box-shadow: 4px 0 20px rgba(27,61,53,0.18);
+  box-shadow: 4px 0 20px rgba(27,61,53,0.15);
 }
 .sidebar.collapsed { transform: translateX(-100%); }
 
 .sidebar-logo {
   display: flex; align-items: center; gap: 12px;
   padding: 22px 18px;
-  border-bottom: 1px solid rgba(27,61,53,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .logo-icon {
   width: 36px; height: 36px; border-radius: 50%;
@@ -31,41 +31,41 @@
 }
 .logo-title {
   font-family: 'DM Serif Display', serif;
-  font-weight: 400; font-size: 17px; color: #1b3d35;
+  font-weight: 400; font-size: 17px; color: #fff;
 }
-.logo-sub { font-size: 10px; color: rgba(27,61,53,0.55); margin-top: 1px; }
+.logo-sub { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 1px; }
 
 .sidebar-nav { flex: 1; padding: 16px 10px; display: flex; flex-direction: column; gap: 3px; }
 .nav-item {
   display: flex; align-items: center; gap: 12px;
   padding: 10px 14px; border-radius: 8px;
-  color: rgba(27,61,53,0.72); text-decoration: none;
+  color: rgba(255,255,255,0.65); text-decoration: none;
   font-size: 13.5px; font-weight: 500;
   transition: all 0.2s; border: 1px solid transparent;
 }
-.nav-item:hover { background: rgba(27,61,53,0.1); color: #1b3d35; }
+.nav-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .nav-item:hover .nav-icon { color: var(--orange); }
 .nav-item.active {
-  background: rgba(27,61,53,0.14);
-  color: #1b3d35;
-  border-color: rgba(27,61,53,0.2);
+  background: rgba(255,255,255,0.13);
+  color: #fff;
+  border-color: rgba(255,255,255,0.18);
 }
 .nav-item.active .nav-icon { color: var(--orange); }
 .nav-icon {
   font-size: 15px;
   width: 20px;
   text-align: center;
-  color: rgba(27,61,53,0.45);
+  color: rgba(255,255,255,0.45);
   transition: color 0.2s;
   flex-shrink: 0;
 }
 
 .sidebar-footer {
   padding: 16px 18px;
-  border-top: 1px solid rgba(27,61,53,0.15);
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 .org-badge { font-size: 11px; font-weight: 600; color: var(--orange); }
-.org-loc { font-size: 10px; color: rgba(27,61,53,0.5); margin-top: 2px; }
+.org-loc { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 2px; }
 
 /* ===== MAIN CONTENT ===== */
 .main-content {
