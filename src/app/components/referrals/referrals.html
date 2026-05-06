@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h1>Referral Management</h1>
+  <p>Structured referral pathways to Govt/AH/DH/TH/Regional Eye Hospitals</p>
+</div>
+
+<div class="ref-stats">
+  <div class="ref-stat"><span>Total Referrals</span><strong>{{ data.referrals.length }}</strong></div>
+  <div class="ref-stat pending"><span>Pending</span><strong>{{ pendingCount }}</strong></div>
+  <div class="ref-stat completed"><span>Completed</span><strong>{{ completedCount }}</strong></div>
+</div>
+
+@for (r of data.referrals; track r.id) {
+  <div class="ref-card">
+    <div class="ref-icon">{{ getIcon(r.type) }}</div>
+    <div class="ref-info">
+      <div class="ref-name">{{ r.patient }} <span class="ref-age">Age {{ r.age }}</span></div>
+      <div class="ref-type">{{ r.type }}</div>
+      <div class="ref-detail">📍 {{ r.district }} → 🏥 {{ r.hospital }}</div>
+      <div class="ref-id">{{ r.id }} · {{ r.date }}</div>
+    </div>
+    <div class="ref-status">
+      <span class="badge" [ngClass]="statusClass(r.status)">{{ r.status }}</span>
+    </div>
+  </div>
+}

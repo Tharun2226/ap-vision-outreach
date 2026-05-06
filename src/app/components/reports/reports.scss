@@ -1,0 +1,22 @@
+.page-header { margin-bottom:24px; }
+.page-header h1 { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; background:var(--grad1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.page-header p { font-size:13px; color:var(--text2); margin-top:4px; }
+.report-types { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+.report-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; display:flex; align-items:center; gap:16px; transition:all 0.2s; }
+.report-card:hover { border-color:var(--accent); }
+.report-icon { font-size:28px; width:40px; text-align:center; }
+.report-info { flex:1; }
+.report-title { font-weight:700; font-size:15px; }
+.report-desc { font-size:12px; color:var(--text2); margin-top:3px; }
+.report-meta { font-size:11px; color:var(--text3); margin-top:4px; }
+.btn { display:inline-flex; align-items:center; gap:6px; padding:9px 18px; border-radius:9px; font-size:13px; font-weight:600; border:none; cursor:pointer; transition:all 0.2s; font-family:'Inter',sans-serif; white-space:nowrap; }
+.btn-primary { background:var(--grad1); color:#fff; }
+.btn-primary:hover { opacity:0.9; transform:translateY(-1px); }
+.accountability-section h2 { font-family:'Outfit',sans-serif; font-size:18px; font-weight:700; margin-bottom:16px; }
+.acc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+.acc-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; }
+.acc-icon { font-size:28px; margin-bottom:10px; }
+.acc-title { font-weight:700; font-size:14px; margin-bottom:8px; color:var(--accent); }
+.acc-desc { font-size:12px; color:var(--text2); line-height:1.6; }
+.toast { position:fixed; bottom:24px; right:24px; background:var(--accent3); color:#0a0e1a; padding:12px 22px; border-radius:10px; font-weight:600; font-size:14px; z-index:999; animation:slideIn 0.3s ease; }
+@keyframes slideIn { from{transform:translateX(60px);opacity:0} to{transform:translateX(0);opacity:1} }

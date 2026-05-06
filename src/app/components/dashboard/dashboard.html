@@ -1,0 +1,95 @@
+<div class="hero-banner">
+  <div class="hero-eye">👁️</div>
+  <div class="hero-text">
+    <h1>Illuminating Lives Across All Districts</h1>
+    <p>Andhra Pradesh Vision Outreach Program – Real-time Government Oversight Dashboard</p>
+    <div class="hero-chips">
+      <span class="chip">26 Districts</span>
+      <span class="chip">eHR Standards-2016</span>
+      <span class="chip">Live Data</span>
+      <span class="chip">Tele-Ophthalmology</span>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+  <div class="stat-card blue">
+    <div class="stat-icon">👁️</div>
+    <div class="stat-label">Total Screenings</div>
+    <div class="stat-value">{{ totals.screened | number }}<span>+2.1%</span></div>
+    <div class="stat-sub">Across 26 districts</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:74%"></div></div>
+  </div>
+  <div class="stat-card green">
+    <div class="stat-icon">👓</div>
+    <div class="stat-label">Spectacles Distributed</div>
+    <div class="stat-value">{{ totals.spectacles | number }}<span>+3.4%</span></div>
+    <div class="stat-sub">Within 21-day target</div>
+    <div class="progress-bar"><div class="progress-fill green" style="width:82%"></div></div>
+  </div>
+  <div class="stat-card orange">
+    <div class="stat-icon">🔗</div>
+    <div class="stat-label">Referrals Made</div>
+    <div class="stat-value">{{ totals.referrals | number }}<span>+1.8%</span></div>
+    <div class="stat-sub">Govt/AH/DH/TH Hospitals</div>
+    <div class="progress-bar"><div class="progress-fill orange" style="width:58%"></div></div>
+  </div>
+  <div class="stat-card purple">
+    <div class="stat-icon">🗺️</div>
+    <div class="stat-label">Districts Active</div>
+    <div class="stat-value">{{ totals.districts }}<span>/ 26</span></div>
+    <div class="stat-sub">100% coverage achieved</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="charts-grid">
+  <div class="chart-card">
+    <div class="chart-title">Monthly Screening & Distribution Trend <span class="chart-badge">7 Months</span></div>
+    <div class="chart-wrap"><canvas #trendChart></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Diagnosis Breakdown</div>
+    <div class="chart-wrap"><canvas #typeChart></canvas></div>
+  </div>
+</div>
+
+<!-- Top Districts -->
+<div class="section-title">Top Districts by Screenings</div>
+<div class="chart-card" style="margin-bottom:24px">
+  <div class="chart-wrap" style="height:200px"><canvas #distChart></canvas></div>
+</div>
+
+<!-- District Table -->
+<div class="section-title">District Performance Overview</div>
+<div class="data-table-wrap">
+  <table>
+    <thead>
+      <tr><th>District</th><th>Screened</th><th>Spectacles</th><th>Referrals</th><th>Target</th><th>Progress</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      @for (d of topDistricts; track d.name) {
+        <tr>
+          <td><strong>{{ d.name }}</strong></td>
+          <td>{{ d.screened | number }}</td>
+          <td>{{ d.spectacles | number }}</td>
+          <td>{{ d.referrals }}</td>
+          <td>{{ d.target | number }}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="progress-bar" style="width:100px"><div class="progress-fill" [style.width.%]="getProgress(d)"></div></div>
+              <span style="font-size:12px;color:#8b9abf">{{ getProgress(d) }}%</span>
+            </div>
+          </td>
+          <td>
+            <span class="badge" [class.badge-green]="getProgress(d)>=75" [class.badge-orange]="getProgress(d)<75 && getProgress(d)>=50" [class.badge-red]="getProgress(d)<50">
+              {{ getProgress(d) >= 75 ? 'On Track' : getProgress(d) >= 50 ? 'In Progress' : 'Needs Attention' }}
+            </span>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

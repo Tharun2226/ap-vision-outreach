@@ -1,0 +1,25 @@
+.page-header { margin-bottom:20px; }
+.page-header h1 { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; background:var(--grad2); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.page-header p { font-size:13px; color:var(--text2); margin-top:4px; }
+.filter-bar { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
+.filter-btn { padding:7px 16px; border-radius:20px; border:1px solid var(--border); background:var(--card); color:var(--text2); font-size:13px; cursor:pointer; transition:all 0.2s; font-family:'Inter',sans-serif; }
+.filter-btn:hover { border-color:var(--accent); color:var(--accent); }
+.filter-btn.active { background:rgba(79,142,247,0.15); border-color:var(--accent); color:var(--accent); font-weight:600; }
+.data-table-wrap { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:auto; margin-bottom:18px; }
+table { width:100%; border-collapse:collapse; min-width:700px; }
+thead { background:var(--bg3); }
+th { padding:11px 14px; font-size:11px; color:var(--text2); font-weight:600; text-align:left; text-transform:uppercase; letter-spacing:0.04em; border-bottom:1px solid var(--border); white-space:nowrap; }
+td { padding:11px 14px; font-size:13px; border-bottom:1px solid rgba(42,53,96,0.4); }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:rgba(79,142,247,0.04); }
+.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+.badge-green { background:rgba(0,212,170,0.15); color:var(--accent3); }
+.badge-blue { background:rgba(79,142,247,0.15); color:var(--accent); }
+.badge-orange { background:rgba(247,169,79,0.15); color:var(--accent4); }
+.badge-red { background:rgba(247,95,95,0.15); color:var(--accent5); }
+.power-code { background:var(--bg3); padding:2px 7px; border-radius:5px; font-size:11px; color:var(--accent3); font-family:'Courier New',monospace; }
+.on-time { color:var(--accent3); font-weight:700; }
+.delayed { color:var(--accent5); font-weight:700; }
+.delay-warn { font-size:11px; color:var(--accent4); }
+.info-card { background:rgba(79,142,247,0.07); border:1px solid rgba(79,142,247,0.2); border-radius:12px; padding:16px 20px; display:flex; align-items:center; gap:14px; font-size:13px; color:var(--text2); }
+.info-icon { font-size:22px; }

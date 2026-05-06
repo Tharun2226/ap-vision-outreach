@@ -1,0 +1,49 @@
+<div class="app-shell" [class.sidebar-collapsed]="!sidebarOpen">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="!sidebarOpen">
+    <div class="sidebar-logo">
+      <div class="logo-icon">👁️</div>
+      <div>
+        <div class="logo-title">AP Vision</div>
+        <div class="logo-sub">Outreach Program</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      @for (item of navItems; track item.path) {
+        <a [routerLink]="item.path" routerLinkActive="active" class="nav-item">
+          <i [class]="item.icon + ' nav-icon'"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+    <div class="sidebar-footer">
+      <div class="org-badge">Akriti Ophthalmic Pvt Ltd</div>
+      <div class="org-loc">Hyderabad, TG, India</div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger" (click)="toggleSidebar()">☰</button>
+        <div class="page-title">AP Vision Outreach Program</div>
+      </div>
+      <div class="topbar-right">
+        <select class="role-select" (change)="onRoleChange($event)">
+          @for (r of roles; track r.value) {
+            <option [value]="r.value">{{ r.label }}</option>
+          }
+        </select>
+        <div class="user-badge">
+          <div class="user-avatar">{{ roleInitials }}</div>
+          <span class="user-name">{{ currentRole }}</span>
+        </div>
+        <div class="live-dot-wrap"><span class="live-dot"></span> Live</div>
+      </div>
+    </header>
+    <div class="page-content">
+      <router-outlet />
+    </div>
+  </div>
+</div>

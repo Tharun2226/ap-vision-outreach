@@ -1,0 +1,336 @@
+@if (toast) { <div class="emr-toast">{{ toast }}</div> }
+
+<div class="emr-wrapper">
+
+  <!-- Page Header -->
+  <div class="emr-header">
+    <div>
+      <h1><i class="fa-solid fa-file-medical"></i> Eye Examination Form</h1>
+      <p>Andhra Pradesh Screening Program &mdash; Comprehensive EMR Entry</p>
+    </div>
+    <div class="step-counter">Step {{ currentStep + 1 }} of {{ steps.length }}</div>
+  </div>
+
+  <!-- Stepper -->
+  <div class="stepper">
+    @for (step of steps; track step.label; let i = $index) {
+      <div class="step-item" [class.active]="i === currentStep" [class.done]="i < currentStep" (click)="goTo(i)">
+        <div class="step-bubble">
+          @if (i < currentStep) {
+            <i class="fa-solid fa-check"></i>
+          } @else {
+            <i [class]="step.icon"></i>
+          }
+        </div>
+        <div class="step-label">{{ step.label }}</div>
+      </div>
+      @if (i < steps.length - 1) {
+        <div class="step-line" [class.done]="i < currentStep"></div>
+      }
+    }
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="emr-progress-bar">
+    <div class="emr-progress-fill" [style.width.%]="progress"></div>
+  </div>
+
+  <!-- Step Panels -->
+  <div class="step-panel">
+
+    <!-- STEP 1: Patient Info -->
+    @if (currentStep === 0) {
+      <div class="panel-content" [@fadeIn]>
+        <div class="panel-title"><i class="fa-solid fa-user"></i> Patient Information</div>
+        <div class="form-grid col3">
+          <div class="form-group">
+            <label>Full Name <span class="req">*</span></label>
+            <input [(ngModel)]="form.patientName" name="pName" placeholder="Enter full name" />
+          </div>
+          <div class="form-group">
+            <label>Age <span class="req">*</span></label>
+            <input [(ngModel)]="form.age" name="age" type="number" placeholder="Years" />
+          </div>
+          <div class="form-group">
+            <label>Gender</label>
+            <select [(ngModel)]="form.gender" name="gender">
+              <option value="">Select</option>
+              <option>Male</option><option>Female</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input [(ngModel)]="form.phone" name="phone" placeholder="+91 XXXXX XXXXX" />
+          </div>
+          <div class="form-group">
+            <label>District</label>
+            <select [(ngModel)]="form.district" name="district">
+              <option value="">Select District</option>
+              @for (d of districts; track d) { <option>{{ d }}</option> }
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Village / Ward</label>
+            <input [(ngModel)]="form.village" name="village" placeholder="Village or ward name" />
+          </div>
+          <div class="form-group">
+            <label>Aadhaar (last 4 digits)</label>
+            <input [(ngModel)]="form.aadhaar" name="aadhaar" placeholder="XXXX" maxlength="4" />
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- STEP 2: Complaints & History -->
+    @if (currentStep === 1) {
+      <div class="panel-content">
+        <div class="panel-title"><i class="fa-solid fa-comment-medical"></i> Presenting Complaints & History</div>
+
+        <div class="subsection">Symptoms (tick all that apply)</div>
+        <div class="checkbox-group">
+          <label class="cb-item"><input type="checkbox" [(ngModel)]="form.complaints.blur" name="blur" /><i class="fa-solid fa-low-vision"></i> Blurred Vision</label>
+          <label class="cb-item"><input type="checkbox" [(ngModel)]="form.complaints.redness" name="red" /><i class="fa-solid fa-droplet"></i> Redness</label>
+          <label class="cb-item"><input type="checkbox" [(ngModel)]="form.complaints.watering" name="water" /><i class="fa-solid fa-water"></i> Watering</label>
+          <label class="cb-item"><input type="checkbox" [(ngModel)]="form.complaints.pain" name="pain" /><i class="fa-solid fa-face-grimace"></i> Pain / Discomfort</label>
+          <label class="cb-item"><input type="checkbox" [(ngModel)]="form.complaints.photophobia" name="photo" /><i class="fa-solid fa-sun"></i> Photophobia</label>
+          <label class="cb-item"><input type="checkbox" [(ngModel)]="form.complaints.headache" name="head" /><i class="fa-solid fa-head-side-virus"></i> Headache / Eye Strain</label>
+        </div>
+        <div class="form-group" style="margin-top:12px; max-width:500px">
+          <label>Other Symptoms</label>
+          <input [(ngModel)]="form.complaints.other" name="cOther" placeholder="Specify other symptoms" />
+        </div>
+
+        <div class="two-col" style="margin-top:24px">
+          <div>
+            <div class="subsection">Ocular History</div>
+            <div class="checkbox-group vertical">
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.ocularHistory.refractive" name="ref" /> Refractive Error</label>
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.ocularHistory.cataract" name="cat" /> Cataract</label>
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.ocularHistory.glaucoma" name="glau" /> Glaucoma</label>
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.ocularHistory.trauma" name="tra" /> Trauma</label>
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.ocularHistory.contactLens" name="cl" /> Contact Lens Use</label>
+            </div>
+            <div class="form-group" style="margin-top:10px">
+              <label>Surgery (specify)</label>
+              <input [(ngModel)]="form.ocularHistory.surgery" name="surg" placeholder="Type of surgery" />
+            </div>
+          </div>
+          <div>
+            <div class="subsection">Medical History</div>
+            <div class="checkbox-group vertical">
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.medicalHistory.diabetes" name="dia" /> Diabetes</label>
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.medicalHistory.hypertension" name="htn" /> Hypertension</label>
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.medicalHistory.thyroid" name="thy" /> Thyroid Disorder</label>
+              <label class="cb-item"><input type="checkbox" [(ngModel)]="form.medicalHistory.autoimmune" name="auto" /> Autoimmune Disease</label>
+            </div>
+            <div class="form-group" style="margin-top:10px">
+              <label>Current Medications</label>
+              <input [(ngModel)]="form.medicalHistory.medications" name="meds" placeholder="List medications" />
+            </div>
+            <div class="form-group">
+              <label>Known Allergies</label>
+              <input [(ngModel)]="form.medicalHistory.allergies" name="allerg" placeholder="List allergies" />
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- STEP 3: Visual Acuity -->
+    @if (currentStep === 2) {
+      <div class="panel-content">
+        <div class="panel-title"><i class="fa-solid fa-eye"></i> Visual Acuity Assessment</div>
+
+        <div class="subsection">Distance Vision — Unaided / Best Corrected / Pinhole</div>
+        <div class="va-table">
+          <div class="va-head"><span>Eye</span><span>UCVA</span><span>BCVA</span><span>Pinhole</span></div>
+          <div class="va-row">
+            <div class="eye-tag od">OD <span>Right</span></div>
+            <input [(ngModel)]="form.va.od_ucva" name="od_ucva" placeholder="6/6" />
+            <input [(ngModel)]="form.va.od_bcva" name="od_bcva" placeholder="6/6" />
+            <input [(ngModel)]="form.va.od_ph"   name="od_ph"   placeholder="6/6" />
+          </div>
+          <div class="va-row">
+            <div class="eye-tag os">OS <span>Left</span></div>
+            <input [(ngModel)]="form.va.os_ucva" name="os_ucva" placeholder="6/6" />
+            <input [(ngModel)]="form.va.os_bcva" name="os_bcva" placeholder="6/6" />
+            <input [(ngModel)]="form.va.os_ph"   name="os_ph"   placeholder="6/6" />
+          </div>
+        </div>
+
+        <div class="subsection" style="margin-top:24px">Near Vision</div>
+        <div class="va-table col3">
+          <div class="va-head"><span>Eye</span><span>Unaided</span><span>With Correction</span></div>
+          <div class="va-row">
+            <div class="eye-tag od">OD <span>Right</span></div>
+            <input [(ngModel)]="form.va.od_near_ua"   name="od_near_ua"   placeholder="N6" />
+            <input [(ngModel)]="form.va.od_near_corr" name="od_near_corr" placeholder="N6" />
+          </div>
+          <div class="va-row">
+            <div class="eye-tag os">OS <span>Left</span></div>
+            <input [(ngModel)]="form.va.os_near_ua"   name="os_near_ua"   placeholder="N6" />
+            <input [(ngModel)]="form.va.os_near_corr" name="os_near_corr" placeholder="N6" />
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- STEP 4: Refraction & Rx -->
+    @if (currentStep === 3) {
+      <div class="panel-content">
+        <div class="panel-title"><i class="fa-solid fa-glasses"></i> Refraction &amp; Final Prescription</div>
+
+        <div class="subsection">Objective Refraction (Auto / Retinoscopy)</div>
+        <div class="rx-table">
+          <div class="rx-head"><span>Eye</span><span>Sphere</span><span>Cylinder</span><span>Axis</span><span>VA</span></div>
+          <div class="rx-row">
+            <div class="eye-tag od">OD</div>
+            <input [(ngModel)]="form.obj.od_sph"  name="obj_od_sph"  placeholder="0.00" />
+            <input [(ngModel)]="form.obj.od_cyl"  name="obj_od_cyl"  placeholder="0.00" />
+            <input [(ngModel)]="form.obj.od_axis" name="obj_od_axis" placeholder="0°" />
+            <input [(ngModel)]="form.obj.od_va"   name="obj_od_va"   placeholder="6/6" />
+          </div>
+          <div class="rx-row">
+            <div class="eye-tag os">OS</div>
+            <input [(ngModel)]="form.obj.os_sph"  name="obj_os_sph"  placeholder="0.00" />
+            <input [(ngModel)]="form.obj.os_cyl"  name="obj_os_cyl"  placeholder="0.00" />
+            <input [(ngModel)]="form.obj.os_axis" name="obj_os_axis" placeholder="0°" />
+            <input [(ngModel)]="form.obj.os_va"   name="obj_os_va"   placeholder="6/6" />
+          </div>
+        </div>
+
+        <div class="subsection" style="margin-top:24px">Final Glasses Prescription</div>
+        <div class="rx-cards">
+          <div class="rx-card">
+            <div class="rx-card-title"><span class="eye-dot od"></span> Right Eye (OD)</div>
+            <div class="rx-card-grid">
+              <div class="form-group"><label>Sphere</label><input [(ngModel)]="form.rx.od_sph"  name="rx_od_sph"  placeholder="0.00" /></div>
+              <div class="form-group"><label>Cylinder</label><input [(ngModel)]="form.rx.od_cyl" name="rx_od_cyl" placeholder="0.00" /></div>
+              <div class="form-group"><label>Axis</label><input [(ngModel)]="form.rx.od_axis" name="rx_od_axis" placeholder="0°" /></div>
+              <div class="form-group"><label>Add</label><input [(ngModel)]="form.rx.od_add"  name="rx_od_add"  placeholder="+0.00" /></div>
+              <div class="form-group"><label>PD (mm)</label><input [(ngModel)]="form.rx.od_pd" name="rx_od_pd" placeholder="32" /></div>
+            </div>
+          </div>
+          <div class="rx-card">
+            <div class="rx-card-title"><span class="eye-dot os"></span> Left Eye (OS)</div>
+            <div class="rx-card-grid">
+              <div class="form-group"><label>Sphere</label><input [(ngModel)]="form.rx.os_sph"  name="rx_os_sph"  placeholder="0.00" /></div>
+              <div class="form-group"><label>Cylinder</label><input [(ngModel)]="form.rx.os_cyl" name="rx_os_cyl" placeholder="0.00" /></div>
+              <div class="form-group"><label>Axis</label><input [(ngModel)]="form.rx.os_axis" name="rx_os_axis" placeholder="0°" /></div>
+              <div class="form-group"><label>Add</label><input [(ngModel)]="form.rx.os_add"  name="rx_os_add"  placeholder="+0.00" /></div>
+              <div class="form-group"><label>PD (mm)</label><input [(ngModel)]="form.rx.os_pd" name="rx_os_pd" placeholder="32" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:18px; max-width:320px">
+          <label>Lens Type</label>
+          <select [(ngModel)]="form.lensType" name="lensType">
+            <option value="sv_distance">Single Vision Distance</option>
+            <option value="sv_near">Single Vision Near</option>
+            <option value="bifocal">Bifocal</option>
+            <option value="progressive">Progressive</option>
+          </select>
+        </div>
+      </div>
+    }
+
+    <!-- STEP 5: IOP, Diagnosis & Treatment -->
+    @if (currentStep === 4) {
+      <div class="panel-content">
+        <div class="panel-title"><i class="fa-solid fa-stethoscope"></i> IOP, Diagnosis &amp; Treatment</div>
+
+        <div class="subsection">Intraocular Pressure (IOP)</div>
+        <div class="iop-grid">
+          <div class="iop-card">
+            <div class="iop-label"><span class="eye-dot od"></span> Right Eye (OD)</div>
+            <div class="form-grid col2">
+              <div class="form-group"><label>Method</label><input [(ngModel)]="form.iop.od_method" name="od_method" placeholder="e.g. NCT" /></div>
+              <div class="form-group"><label>IOP (mmHg)</label><input [(ngModel)]="form.iop.od_iop" name="od_iop" placeholder="e.g. 14" /></div>
+            </div>
+          </div>
+          <div class="iop-card">
+            <div class="iop-label"><span class="eye-dot os"></span> Left Eye (OS)</div>
+            <div class="form-grid col2">
+              <div class="form-group"><label>Method</label><input [(ngModel)]="form.iop.os_method" name="os_method" placeholder="e.g. NCT" /></div>
+              <div class="form-group"><label>IOP (mmHg)</label><input [(ngModel)]="form.iop.os_iop" name="os_iop" placeholder="e.g. 16" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection" style="margin-top:24px">Clinical Findings</div>
+        <div class="form-group">
+          <label>Diagnosis</label>
+          <select [(ngModel)]="form.diagnosis" name="diagnosis">
+            <option value="">Select Diagnosis</option>
+            @for (d of data.diagnoses; track d) { <option>{{ d }}</option> }
+          </select>
+        </div>
+        <div class="form-grid col2" style="margin-top:14px">
+          <div class="form-group">
+            <label>Treatment / Management Plan</label>
+            <textarea [(ngModel)]="form.treatment" name="treatment" placeholder="Recommended management plan and clinical advice..." rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Remarks</label>
+            <textarea [(ngModel)]="form.remarks" name="remarks" placeholder="Additional notes or observations by examiner..." rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- STEP 6: Examiner -->
+    @if (currentStep === 5) {
+      <div class="panel-content">
+        <div class="panel-title"><i class="fa-solid fa-user-doctor"></i> Examiner Details</div>
+        <p class="panel-note">All examinations must be completed and authenticated by a qualified eye care professional.</p>
+        <div class="form-grid col2">
+          <div class="form-group">
+            <label>Examined By (Full Name)</label>
+            <input [(ngModel)]="form.examinerName" name="examinerName" placeholder="Dr. / PMOA Full Name" />
+          </div>
+          <div class="form-group">
+            <label>Designation / Qualification</label>
+            <input [(ngModel)]="form.designation" name="designation" placeholder="e.g. PMOA, Ophthalmologist" />
+          </div>
+        </div>
+
+        <!-- Summary Card -->
+        <div class="summary-card">
+          <div class="summary-title"><i class="fa-solid fa-circle-check"></i> Ready to Submit</div>
+          <div class="summary-grid">
+            <div class="summary-item"><span>Patient</span><strong>{{ form.patientName || '—' }}</strong></div>
+            <div class="summary-item"><span>Age / Gender</span><strong>{{ form.age || '—' }} / {{ form.gender || '—' }}</strong></div>
+            <div class="summary-item"><span>District</span><strong>{{ form.district || '—' }}</strong></div>
+            <div class="summary-item"><span>Diagnosis</span><strong>{{ form.diagnosis || '—' }}</strong></div>
+            <div class="summary-item"><span>Lens Type</span><strong>{{ form.lensType || '—' }}</strong></div>
+            <div class="summary-item"><span>Examiner</span><strong>{{ form.examinerName || '—' }}</strong></div>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div><!-- end step-panel -->
+
+  <!-- Navigation -->
+  <div class="step-nav">
+    <button class="btn btn-secondary" (click)="prev()" [disabled]="isFirst">
+      <i class="fa-solid fa-arrow-left"></i> Previous
+    </button>
+    <div class="step-dots">
+      @for (step of steps; track step.label; let i = $index) {
+        <span class="dot" [class.active]="i === currentStep" [class.done]="i < currentStep" (click)="goTo(i)"></span>
+      }
+    </div>
+    @if (!isLast) {
+      <button class="btn btn-primary" (click)="next()">
+        Next <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    } @else {
+      <button class="btn btn-submit" (click)="submitForm()">
+        <i class="fa-solid fa-floppy-disk"></i> Save to EMR
+      </button>
+    }
+  </div>
+
+</div>

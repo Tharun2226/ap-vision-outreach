@@ -1,0 +1,51 @@
+<div class="page-header">
+  <h1>District-wise Performance</h1>
+  <p>Click any district to view detailed statistics across all 26 districts of Andhra Pradesh</p>
+</div>
+
+<div class="district-grid">
+  @for (d of data.districts; track d.name) {
+    <div class="district-card" [class.selected]="selected?.name === d.name" (click)="select(d)">
+      <div class="d-name">{{ d.name }}</div>
+      <div class="d-stat"><span>Screened</span><span class="d-val">{{ d.screened | number }}</span></div>
+      <div class="d-stat"><span>Spectacles</span><span class="d-val">{{ d.spectacles | number }}</span></div>
+      <div class="d-stat"><span>Referrals</span><span class="d-val">{{ d.referrals }}</span></div>
+      <div class="progress-bar" style="margin-top:8px">
+        <div class="progress-fill" [style.width.%]="pct(d)" [style.background]="getColor(pct(d))"></div>
+      </div>
+      <div class="d-pct">{{ pct(d) }}% of target</div>
+    </div>
+  }
+</div>
+
+@if (selected) {
+  <div class="detail-panel">
+    <div class="detail-header">
+      <h2>{{ selected.name }}</h2>
+      <span class="badge" [class.badge-green]="pct(selected)>=75" [class.badge-orange]="pct(selected)<75 && pct(selected)>=50" [class.badge-red]="pct(selected)<50">
+        {{ pct(selected) >= 75 ? 'On Track' : pct(selected) >= 50 ? 'In Progress' : 'Needs Attention' }}
+      </span>
+    </div>
+    <div class="detail-stats">
+      <div class="d-stat-card">
+        <div class="d-stat-label">Target</div>
+        <div class="d-stat-val">{{ selected.target | number }}</div>
+      </div>
+      <div class="d-stat-card">
+        <div class="d-stat-label">Screened</div>
+        <div class="d-stat-val">{{ selected.screened | number }}</div>
+        <div class="d-stat-sub">{{ pct(selected) }}% complete</div>
+      </div>
+      <div class="d-stat-card">
+        <div class="d-stat-label">Spectacles</div>
+        <div class="d-stat-val">{{ selected.spectacles | number }}</div>
+        <div class="d-stat-sub">{{ spPct(selected) }}% conversion</div>
+      </div>
+      <div class="d-stat-card">
+        <div class="d-stat-label">Referrals</div>
+        <div class="d-stat-val">{{ selected.referrals }}</div>
+        <div class="d-stat-sub">Specialist care needed</div>
+      </div>
+    </div>
+  </div>
+}

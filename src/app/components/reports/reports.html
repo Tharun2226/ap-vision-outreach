@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1>Reports & Analytics</h1>
+  <p>Automated daily, weekly, and monthly reports for government officials</p>
+</div>
+
+@if (toast) { <div class="toast">{{ toast }}</div> }
+
+<div class="report-types">
+  @for (rt of reportTypes; track rt.title) {
+    <div class="report-card">
+      <div class="report-icon">{{ rt.icon }}</div>
+      <div class="report-info">
+        <div class="report-title">{{ rt.title }}</div>
+        <div class="report-desc">{{ rt.desc }}</div>
+        <div class="report-meta">Last generated: {{ rt.last }}</div>
+      </div>
+      <button class="btn btn-primary" (click)="download(rt.title)">⬇ Download</button>
+    </div>
+  }
+</div>
+
+<div class="accountability-section">
+  <h2>Evidence-Driven Accountability</h2>
+  <div class="acc-grid">
+    <div class="acc-card">
+      <div class="acc-icon">📊</div>
+      <div class="acc-title">EMR Data Capture</div>
+      <div class="acc-desc">All screening, prescription, distribution, and referral events logged in real time via eHR Standards-2016.</div>
+    </div>
+    <div class="acc-card">
+      <div class="acc-icon">🏛️</div>
+      <div class="acc-title">Official Submission</div>
+      <div class="acc-desc">Reports delivered directly to District Health Officers, State Programme Heads, and NHM officials with proof of impact.</div>
+    </div>
+    <div class="acc-card">
+      <div class="acc-icon">🤖</div>
+      <div class="acc-title">Automated Reports</div>
+      <div class="acc-desc">Scheduled and on-demand reports generated automatically — daily, weekly, and monthly — for seamless submission.</div>
+    </div>
+    <div class="acc-card">
+      <div class="acc-icon">🔍</div>
+      <div class="acc-title">Policy Insights</div>
+      <div class="acc-desc">Dashboard analytics inform evidence-based decisions on resource allocation, district prioritisation, and programme scaling.</div>
+    </div>
+  </div>
+</div>

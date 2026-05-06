@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>Spectacle Distribution Tracker</h1>
+  <p>21-day manufacturing and delivery accountability for all prescriptions</p>
+</div>
+
+<div class="filter-bar">
+  @for (f of filters; track f) {
+    <button class="filter-btn" [class.active]="filter===f" (click)="filter=f">{{ f }}</button>
+  }
+</div>
+
+<div class="data-table-wrap">
+  <table>
+    <thead>
+      <tr><th>Order ID</th><th>Patient</th><th>District</th><th>Power</th><th>Lens Type</th><th>Days</th><th>Date</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      @for (o of orders; track o.id) {
+        <tr>
+          <td><strong>{{ o.id }}</strong></td>
+          <td>{{ o.patient }}</td>
+          <td>{{ o.district }}</td>
+          <td><code class="power-code">{{ o.power }}</code></td>
+          <td>{{ o.type }}</td>
+          <td>
+            <span [class.on-time]="withinTarget(o.days)" [class.delayed]="!withinTarget(o.days)">
+              {{ o.days }}d
+            </span>
+            @if (!withinTarget(o.days)) { <span class="delay-warn"> ⚠️ Delayed</span> }
+          </td>
+          <td>{{ o.date }}</td>
+          <td><span class="badge" [ngClass]="statusClass(o.status)">{{ o.status }}</span></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="info-card">
+  <div class="info-icon">⏱️</div>
+  <div><strong>21-Day Delivery Target:</strong> All spectacles including high-power and complex prescriptions are manufactured and delivered within 21 days of prescription as per programme standards.</div>
+</div>

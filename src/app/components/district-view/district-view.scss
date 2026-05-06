@@ -1,0 +1,26 @@
+.page-header { margin-bottom:24px; }
+.page-header h1 { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; background:var(--grad1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.page-header p { font-size:13px; color:var(--text2); margin-top:4px; }
+.district-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(175px,1fr)); gap:14px; margin-bottom:24px; }
+.district-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s; }
+.district-card:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 6px 20px rgba(79,142,247,0.15); }
+.district-card.selected { border-color:var(--accent); background:rgba(79,142,247,0.08); }
+.d-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.d-stat { font-size:11px; color:var(--text2); display:flex; justify-content:space-between; margin-bottom:3px; }
+.d-val { color:var(--accent3); font-weight:600; }
+.progress-bar { height:5px; background:var(--bg3); border-radius:3px; overflow:hidden; }
+.progress-fill { height:100%; border-radius:3px; transition:width 0.8s ease; }
+.d-pct { font-size:10px; color:var(--text3); margin-top:4px; text-align:right; }
+.detail-panel { background:var(--card); border:1px solid var(--accent); border-radius:var(--radius); padding:24px; animation:fadeIn 0.3s ease; }
+.detail-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+.detail-header h2 { font-family:'Outfit',sans-serif; font-size:20px; font-weight:800; }
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+.badge-green { background:rgba(0,212,170,0.15); color:var(--accent3); }
+.badge-orange { background:rgba(247,169,79,0.15); color:var(--accent4); }
+.badge-red { background:rgba(247,95,95,0.15); color:var(--accent5); }
+.detail-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:14px; }
+.d-stat-card { background:var(--bg3); border-radius:10px; padding:16px; text-align:center; }
+.d-stat-label { font-size:11px; color:var(--text2); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+.d-stat-val { font-family:'Outfit',sans-serif; font-size:26px; font-weight:800; color:var(--accent); }
+.d-stat-sub { font-size:11px; color:var(--text3); margin-top:4px; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
